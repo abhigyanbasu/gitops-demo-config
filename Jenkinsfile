@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = "abhigyanbasu"
         APP_NAME = "gitops-demo-app"
-                REGISTRY_CREDS = 'dockerhub'
+        REGISTRY_CREDS = 'dockerhub'
         }
     //parameters {
       //  string(name: 'IMAGE_TAG', description: 'enter env value')
@@ -38,9 +38,10 @@ pipeline {
                     git config --global user.email "vikram@gmail.com"
                     git add deployment.yml
                     git commit -m 'Updated the deployment file' """
-                    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'pass', usernameVariable: 'user')]) 
+                    withCredentials([usernamePassword([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) 
                     {
-                        sh "git push https://$user:$pass@github.com/abhigyanbasu/gitops-demo-config.git master"
+                        sh "git push https://github.com/abhigyanbasu/gitops-demo-config.git master "
+                        //sh "git push https://$user:$pass@github.com/abhigyanbasu/gitops-demo-config.git master"
                     }
                 }
             }
