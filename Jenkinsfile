@@ -38,7 +38,7 @@ pipeline {
                     git config --global user.email "vikram@gmail.com"
                     git add deployment.yml
                     git commit -m 'Updated the deployment file' """
-                    withCredentials([usernamePassword([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) 
+                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) 
                     {
                         sh "git push https://github.com/abhigyanbasu/gitops-demo-config.git master "
                         //sh "git push https://$user:$pass@github.com/abhigyanbasu/gitops-demo-config.git master"
